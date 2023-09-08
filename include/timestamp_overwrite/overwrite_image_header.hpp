@@ -12,26 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef OVERWRITE_POINTCLOUD_TIMESTAMP_HPP_
-#define OVERWRITE_POINTCLOUD_TIMESTAMP_HPP_
+#ifndef OVERWRITE_IMAGE_HEADER_HPP_
+#define OVERWRITE_IMAGE_HEADER_HPP_
 
 #include <rclcpp/rclcpp.hpp>
-#include <sensor_msgs/msg/point_cloud2.hpp>
+#include <sensor_msgs/msg/image.hpp>
 
 namespace timestamp_overwrite{
 
-class OverwritePointCloudTimeStamp : public rclcpp::Node
+class OverwriteImageHeader : public rclcpp::Node
 {
 public:
-  explicit OverwritePointCloudTimeStamp(const rclcpp::NodeOptions & options);
+  explicit OverwriteImageHeader(const rclcpp::NodeOptions & options);
 
 private:
-  void onPointCloud(const sensor_msgs::msg::PointCloud2::ConstSharedPtr msg);
-  rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr sub_pointcloud_;
-  rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pub_pointcloud_;
+  void onImage(const sensor_msgs::msg::Image::ConstSharedPtr msg);
+  rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr sub_image_;
+  rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr pub_image_;
+  std::string frame_id_;
 
 };
 
 }  // namespace timestamp_overwrite
 
-#endif  // OVERWRITE_POINTCLOUD_TIMESTAMP_HPP_
+#endif  // OVERWRITE_IMAGE_HEADER_HPP_

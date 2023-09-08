@@ -23,12 +23,39 @@ target_include_directories(overwrite_pointcloud_timestamp_lib PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
 )
-
 target_compile_features(overwrite_pointcloud_timestamp_lib PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 
 rclcpp_components_register_node(overwrite_pointcloud_timestamp_lib
   PLUGIN "timestamp_overwrite::OverwritePointCloudTimeStamp"
   EXECUTABLE overwrite_pointcloud_timestamp
+)
+
+ament_auto_add_library(overwrite_image_header_lib SHARED
+ src/overwrite_image_header.cpp
+)
+target_include_directories(overwrite_image_header_lib PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+)
+target_compile_features(overwrite_image_header_lib PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+
+rclcpp_components_register_node(overwrite_image_header_lib
+  PLUGIN "timestamp_overwrite::OverwriteImageHeader"
+  EXECUTABLE overwrite_image_header
+)
+
+ament_auto_add_library(overwrite_camera_info_header_lib SHARED
+ src/overwrite_camera_info_header.cpp
+)
+target_include_directories(overwrite_camera_info_header_lib PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+)
+target_compile_features(overwrite_camera_info_header_lib PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+
+rclcpp_components_register_node(overwrite_camera_info_header_lib
+  PLUGIN "timestamp_overwrite::OverwriteCameraInfoHeader"
+  EXECUTABLE overwrite_camera_info_header
 )
 
 if(BUILD_TESTING)
