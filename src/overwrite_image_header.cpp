@@ -15,28 +15,7 @@
 #include "timestamp_overwrite/overwrite_image_header.hpp"
 
 #include <rclcpp/rclcpp.hpp>
-
-namespace timestamp_overwrite{
-
-OverwriteImageHeader::OverwriteImageHeader(const rclcpp::NodeOptions & options)
-: Node("overwrite_image_header", options)
-{
-  sub_image_ = this->create_subscription<sensor_msgs::msg::Image>(
-    "~/input", rclcpp::SensorDataQoS(),
-    std::bind(&OverwriteImageHeader::onImage, this, std::placeholders::_1));
-  pub_image_ = this->create_publisher<sensor_msgs::msg::Image>("~/output", rclcpp::SensorDataQoS());
-  frame_id_ = this->declare_parameter<std::string>("frame_id");
-}
-
-void OverwriteImageHeader::onImage(const sensor_msgs::msg::Image::ConstSharedPtr msg)
-{
-  sensor_msgs::msg::Image fixed_msg;
-  fixed_msg = *msg;
-  fixed_msg.header.frame_id = frame_id_;
-  pub_image_->publish(fixed_msg);
-}
-
-}  // namespace timestamp_overwrite
+#include <sensor_msgs/msg/image.hpp>
 
 #include <rclcpp_components/register_node_macro.hpp>
 RCLCPP_COMPONENTS_REGISTER_NODE(timestamp_overwrite::OverwriteImageHeader)

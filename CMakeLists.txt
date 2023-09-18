@@ -16,18 +16,18 @@ project(timestamp_overwrite)
 find_package(ament_cmake_auto REQUIRED)
 ament_auto_find_build_dependencies()
 
-ament_auto_add_library(overwrite_pointcloud_timestamp_lib SHARED
- src/overwrite_pointcloud_timestamp.cpp
+ament_auto_add_library(overwrite_pointcloud_header_lib SHARED
+ src/overwrite_pointcloud_header.cpp
 )
-target_include_directories(overwrite_pointcloud_timestamp_lib PUBLIC
+target_include_directories(overwrite_pointcloud_header_lib PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
 )
-target_compile_features(overwrite_pointcloud_timestamp_lib PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+target_compile_features(overwrite_pointcloud_header_lib PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 
-rclcpp_components_register_node(overwrite_pointcloud_timestamp_lib
-  PLUGIN "timestamp_overwrite::OverwritePointCloudTimeStamp"
-  EXECUTABLE overwrite_pointcloud_timestamp
+rclcpp_components_register_node(overwrite_pointcloud_header_lib
+  PLUGIN "timestamp_overwrite::OverwriteHeader<sensor_msgs::msg::PointCloud2>"
+  EXECUTABLE overwrite_pointcloud_header
 )
 
 ament_auto_add_library(overwrite_image_header_lib SHARED
@@ -54,7 +54,7 @@ target_include_directories(overwrite_camera_info_header_lib PUBLIC
 target_compile_features(overwrite_camera_info_header_lib PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 
 rclcpp_components_register_node(overwrite_camera_info_header_lib
-  PLUGIN "timestamp_overwrite::OverwriteCameraInfoHeader"
+  PLUGIN "timestamp_overwrite::OverwriteHeader<sensor_msgs::msg::CameraInfo>"
   EXECUTABLE overwrite_camera_info_header
 )
 

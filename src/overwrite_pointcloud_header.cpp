@@ -12,26 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef OVERWRITE_POINTCLOUD_TIMESTAMP_HPP_
-#define OVERWRITE_POINTCLOUD_TIMESTAMP_HPP_
+#include "timestamp_overwrite/overwrite_header.hpp"
 
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/point_cloud2.hpp>
 
-namespace timestamp_overwrite{
-
-class OverwritePointCloudTimeStamp : public rclcpp::Node
-{
-public:
-  explicit OverwritePointCloudTimeStamp(const rclcpp::NodeOptions & options);
-
-private:
-  void onPointCloud(const sensor_msgs::msg::PointCloud2::ConstSharedPtr msg);
-  rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr sub_pointcloud_;
-  rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pub_pointcloud_;
-
-};
-
-}  // namespace timestamp_overwrite
-
-#endif  // OVERWRITE_POINTCLOUD_TIMESTAMP_HPP_
+#include <rclcpp_components/register_node_macro.hpp>
+RCLCPP_COMPONENTS_REGISTER_NODE(timestamp_overwrite::OverwriteHeader<sensor_msgs::msg::PointCloud2>)
